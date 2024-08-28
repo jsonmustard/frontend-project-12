@@ -1,15 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { NotFoundPage, LoginPage } from './Components/Pages';
+import { BuildPage, NotFoundPage, LoginPage, MainPage } from './Components/Pages';
+
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {"404"}
-        <Route path="*" element={<NotFoundPage />} />
-        <Route path="/" element={<LoginPage
-         />} />
-        <Route path="login" element={<LoginPage />} />
+        <Route path="*" element={<BuildPage PageComponent={NotFoundPage} />} />
+        <Route path="/" element={<BuildPage PageComponent={MainPage} />} />
+        <Route path="login" element={<BuildPage PageComponent={LoginPage} />} />
       </Routes>
     </BrowserRouter>
   );

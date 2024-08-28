@@ -1,0 +1,21 @@
+{
+  "loginPage": {
+    "form": {
+      "title": "Войти",
+      "fieldsLabels": {
+        "username": "Ваш ник",
+        "password": "Пароль"
+      },
+      "submitButton": "Войти",
+      "footer": {
+        "notAUser": "Нет аккаунта?",
+        "signUp": "Регистрация"
+      }
+    }
+  },
+  "notFoundPage": {
+    "title": "Страница не найдена",
+    "toMainText": "Но вы можете перейти",
+    "toMainLink": "на главную страницу"
+  }
+}
