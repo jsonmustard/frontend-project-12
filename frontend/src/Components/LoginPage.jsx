@@ -1,13 +1,13 @@
-import { useDispatch } from 'react-redux';
+/* eslint-disable functional/no-expression-statement */
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { loginSuccess } from '../authSlice';
 
 const LoginPage = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
 
   const initialValues = {
     username: '',
@@ -19,11 +19,16 @@ const LoginPage = () => {
     // password: Yup.string().required('Обязательное поле'),
   });
 
+  // const data = useSelector((state) => state.auth);
+
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
+
   const onSubmit = (values, { setSubmitting, setFieldError }) => {
     axios.post('/api/v1/login', { username: values.username, password: values.password })
       .then((response) => {
         if (response.status === 200) {
-          dispatch(loginSuccess({ token: response.data.token, user: response.data.user }));
           window.localStorage.setItem('token', response.data.token);
           window.location.replace('/');
         }
