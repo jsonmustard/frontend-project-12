@@ -17,5 +17,10 @@
     "title": "Страница не найдена",
     "toMainText": "Но вы можете перейти",
     "toMainLink": "на главную страницу"
+  },
+  "mainPage": {
+    "messagesCounter_one": "сообщение",
+    "messagesCounter_few": "сообщения",
+    "messagesCounter_many": "сообщений"
   }
 }

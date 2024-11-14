@@ -2,11 +2,19 @@
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getChannels, setCurrentChannelId } from '../slices/channelsSlice';
-import { getMessages } from '../slices/messagesSlice';
+import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
+import * as Yup from 'yup';
+import { compose } from '@reduxjs/toolkit';
+import { io } from 'socket.io-client';
+import { setChannels, setCurrentChannelId } from '../slices/channelsSlice';
+import { setMessages, addMessage } from '../slices/messagesSlice';
+
+const { token, username } = window.localStorage;
+const socket = io();
 
 const MainPage = () => {
-  const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const data = useSelector((state) => ({
     ...state.auth, ...state.channels, ...state.messages, ...state.currentChannelId,
@@ -16,27 +24,68 @@ const MainPage = () => {
     auth, channels, messages, currentChannelId,
   } = data;
 
+  const initialValues = {
+    body: '',
+  };
+
+  const validationSchema = Yup.object().shape({
+  });
+
+  // console.log(1, data);
+
+  const dispatch = useDispatch();
+
+  const onSubmit = (values, { setSubmitting, resetForm, setFieldError }) => {
+    const newMessage = {
+      body: values.body,
+      channelId: currentChannelId,
+      username,
+    };
+
+    axios
+      .post('/api/v1/messages', newMessage, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        resetForm();
+      })
+      .catch((error) => {
+        console.error('Error sending message:', error);
+      })
+      .finally(() => {
+        setSubmitting(false);
+      });
+  };
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit,
+  });
+
   useEffect(() => {
-    if (!window.localStorage.token) {
+    if (!token) {
       window.location.replace('login');
       return;
     }
 
     const fetchChannels = axios.get('/api/v1/channels', {
       headers: {
-        Authorization: `Bearer ${window.localStorage.token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
     const fetchMessages = axios.get('/api/v1/messages', {
       headers: {
-        Authorization: `Bearer ${window.localStorage.token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
     fetchChannels
       .then((response) => {
-        dispatch(getChannels({ channels: response.data }));
+        dispatch(setChannels({ channels: response.data }));
         dispatch(setCurrentChannelId({ currentChannelId: response.data[0].id }));
       })
       .catch((error) => {
@@ -45,14 +94,18 @@ const MainPage = () => {
 
     fetchMessages
       .then((response) => {
-        dispatch(getMessages({ messages: response.data }));
+        dispatch(setMessages({ messages: response.data }));
       })
       .catch((error) => {
         console.error('Error fetching messages:', error);
       });
+
+    socket.on('newMessage', (payload) => {
+      dispatch(addMessage({ messages: payload }));
+    });
   }, [dispatch]);
 
-  console.log(data);
+  // console.log(data);
 
   // useEffect(() => {
   //   console.log(data);
@@ -62,7 +115,7 @@ const MainPage = () => {
 
   const currentChannel = channels.find((channel) => channel.id === currentChannelId);
 
-  console.log(currentChannelId);
+  // console.log(currentChannelId);
 
   return (
     <div className="container h-100 my-4 overflow-hidden rounded shadow">
@@ -99,14 +152,14 @@ const MainPage = () => {
             <div className="bg-light mb-4 p-3 shadow-sm small">
               <p className="m-0">
                 <b>
-                  #
+                  {'# '}
                   {currentChannel?.name}
                 </b>
               </p>
               <span className="text-muted">
                 {messages.filter((msg) => msg.channelId === currentChannel?.id).length}
                 {' '}
-                сообщение(ий)
+                {t('mainPage.messagesCounter', { count: messages.filter((msg) => msg.channelId === currentChannel?.id).length })}
               </span>
             </div>
             <div id="messages-box" className="chat-messages overflow-auto px-5">
@@ -114,17 +167,17 @@ const MainPage = () => {
                 .filter((msg) => msg.channelId === currentChannel?.id)
                 .map((msg) => (
                   <div className="text-break mb-2" key={msg.id}>
-                    <b>{msg.user}</b>
-                    :
-                    {msg.text}
+                    <b>{msg.username}</b>
+                    {': '}
+                    {msg.body}
                   </div>
                 ))}
             </div>
             <div className="mt-auto px-5 py-3">
-              <form noValidate="" className="py-1 border rounded-2">
+              <form onSubmit={formik.handleSubmit} noValidate="" className="py-1 border rounded-2">
                 <div className="input-group has-validation">
-                  <input name="body" aria-label="Новое сообщение" placeholder="Введите сообщение..." className="border-0 p-0 ps-2 form-control" />
-                  <button type="submit" disabled className="btn btn-group-vertical">
+                  <input onChange={formik.handleChange} value={formik.values.body} name="body" aria-label="Новое сообщение" placeholder="Введите сообщение..." className="border-0 p-0 ps-2 form-control" />
+                  <button type="submit" disabled={formik.isSubmitting} className="btn btn-group-vertical">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="currentColor">
                       <path fillRule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
                     </svg>

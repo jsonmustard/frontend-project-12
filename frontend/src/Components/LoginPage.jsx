@@ -29,7 +29,9 @@ const LoginPage = () => {
     axios.post('/api/v1/login', { username: values.username, password: values.password })
       .then((response) => {
         if (response.status === 200) {
+          console.log(response);
           window.localStorage.setItem('token', response.data.token);
+          window.localStorage.setItem('username', response.data.username);
           window.location.replace('/');
         }
       })

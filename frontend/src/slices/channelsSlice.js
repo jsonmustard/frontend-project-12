@@ -9,7 +9,7 @@ const channelsSlice = createSlice({
   name: 'channels',
   initialState,
   reducers: {
-    getChannels(state, action) {
+    setChannels(state, action) {
       state.channels = action.payload.channels;
     },
     setCurrentChannelId(state, action) {
@@ -19,6 +19,6 @@ const channelsSlice = createSlice({
   },
 });
 
-export const { getChannels, setCurrentChannelId } = channelsSlice.actions;
+export const { setChannels, setCurrentChannelId } = channelsSlice.actions;
 
 export default channelsSlice.reducer;
