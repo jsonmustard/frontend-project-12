@@ -1,5 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../slices/authSlice';
+import ModalAddChannel from './ModalAddChannel';
+import ModalRemoveChannel from './ModalRemoveChannel';
+import ModalEditChannel from './ModalEditChannel';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -25,18 +28,26 @@ const Header = () => {
   );
 };
 
-const BuildPage = ({ PageComponent }) => (
-  <div className="min-vh-100 bg-light">
-    <div className="h-100">
-      <div className="h-100" id="chat">
-        <div className="d-flex flex-column h-100">
-          <Header />
-          <PageComponent />
+const BuildPage = ({ PageComponent }) => {
+  const { isActiveAddChannelModal, isActiveRemoveChannelModal, isActiveEditChannelModal } = useSelector((state) => state.channels);
+  return (
+    <>
+      <div className={`h-100 bg-light ${isActiveAddChannelModal ? 'modal-open' : ''}`} style={{ 'overscroll-behavior-x': 'none', overflow: 'hidden' }}>
+        <div className="h-100">
+          <div className="h-100" id="chat">
+            <div className="d-flex flex-column h-100">
+              <Header />
+              <PageComponent />
+            </div>
+            <div className="Toastify" />
+          </div>
         </div>
-        <div className="Toastify" />
       </div>
-    </div>
-  </div>
-);
+      {isActiveAddChannelModal ? <ModalAddChannel /> : ''}
+      {isActiveRemoveChannelModal ? <ModalRemoveChannel /> : ''}
+      {isActiveEditChannelModal ? <ModalEditChannel /> : ''}
+    </>
+  );
+};
 
 export default BuildPage;

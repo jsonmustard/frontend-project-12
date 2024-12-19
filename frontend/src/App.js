@@ -11,6 +11,12 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    document.body.classList.add('h-100');
+    const rootElement = document.getElementById('root');
+    if (rootElement) {
+      rootElement.classList.add('h-100');
+    }
+
     dispatch(loadAuthData());
   }, [dispatch]);
 

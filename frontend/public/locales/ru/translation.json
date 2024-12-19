@@ -21,6 +21,8 @@
   "mainPage": {
     "messagesCounter_one": "сообщение",
     "messagesCounter_few": "сообщения",
-    "messagesCounter_many": "сообщений"
+    "messagesCounter_many": "сообщений",
+    "removeButton": "Удалить",
+    "renameButton": "Переименовать"
   }
 }
