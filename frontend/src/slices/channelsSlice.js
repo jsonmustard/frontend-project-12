@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   channels: [],
@@ -11,7 +11,7 @@ const initialState = {
 };
 
 const channelsSlice = createSlice({
-  name: "channels",
+  name: 'channels',
   initialState,
   reducers: {
     setChannels(state, action) {
@@ -39,12 +39,12 @@ const channelsSlice = createSlice({
     toggleEditChannelModal(state, action) {
       state.isActiveEditChannelModal = !state.isActiveEditChannelModal;
       state.channelToEditId = action.payload || null;
-      console.log(state.isActiveEditChannelModal)
+      console.log(state.isActiveEditChannelModal);
     },
     addChannel(state, action) {
       const newChannel = action.payload.channels;
       const exists = state.channels.some(
-        (channel) => channel.id === newChannel.id
+        (channel) => channel.id === newChannel.id,
       );
       if (!exists) {
         state.channels = [...state.channels, newChannel];
@@ -53,16 +53,13 @@ const channelsSlice = createSlice({
     },
     removeChannel(state, action) {
       state.channels = state.channels.filter(
-        (channel) => channel.id !== action.payload
+        (channel) => channel.id !== action.payload,
       );
       state.currentChannelId = 1;
     },
     editChannel(state, action) {
-      state.channels = state.channels.map(channel => 
-        channel.id === action.payload.id ? { ...channel, name: action.payload.name } : channel
-      );
-      console.log(state.channels);
-    }
+      state.channels = state.channels.map((channel) => (channel.id === action.payload.channels.id ? { ...channel, name: action.payload.channels.name } : channel));
+    },
   },
 });
 
