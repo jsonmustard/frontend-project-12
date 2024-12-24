@@ -6,6 +6,7 @@ import BuildPage from './Components/BuildPage';
 import NotFoundPage from './Components/NotFoundPage';
 import MainPage from './Components/MainPage';
 import LoginPage from './Components/LoginPage';
+import SignUpPage from './Components/SignUpPage';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="*" element={<BuildPage PageComponent={NotFoundPage} />} />
         <Route path="/" element={<BuildPage PageComponent={MainPage} />} />
         <Route path="login" element={<BuildPage PageComponent={LoginPage} />} />
+        <Route path="signup" element={<BuildPage PageComponent={SignUpPage} />} />
       </Routes>
     </BrowserRouter>
   );

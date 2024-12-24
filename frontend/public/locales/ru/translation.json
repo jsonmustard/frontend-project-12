@@ -24,5 +24,27 @@
     "messagesCounter_many": "сообщений",
     "removeButton": "Удалить",
     "renameButton": "Переименовать"
+  },
+  "signUpPage": {
+    "form": {
+      "title": "Регистрация",
+      "username": {
+        "fieldName": "Имя пользователя",
+        "lenghtError": "От 3 до 20 символов"
+      },
+      "password": {
+        "fieldName": "Пароль",
+        "lenghtError": "Не менее 6 символов"
+      },
+      "confirmPassword": {
+        "fieldName": "Подтвердите пароль",
+        "matchError": "Пароли должны совпадать"
+      },
+      "errors": {
+        "fieldRequired": "Обязательное поле",
+        "userExists": "Такой пользователь уже существует"
+      },
+      "submitButton": "Зарегистрироваться"
+    }
   }
 }

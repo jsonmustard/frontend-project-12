@@ -28,6 +28,7 @@ const LoginPage = () => {
   const onSubmit = (values, { setSubmitting, setFieldError }) => {
     axios.post('/api/v1/login', { username: values.username, password: values.password })
       .then((response) => {
+        console.log(response)
         if (response.status === 200) {
           console.log(response);
           window.localStorage.setItem('token', response.data.token);
