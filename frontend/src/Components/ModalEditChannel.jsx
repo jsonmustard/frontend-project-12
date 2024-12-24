@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { io } from 'socket.io-client';
 import { editChannel, toggleEditChannelModal } from '../slices/channelsSlice';
 
@@ -10,6 +11,7 @@ const { token } = window.localStorage;
 const socket = io();
 
 const ModalEditChannel = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const data = useSelector((state) => ({
@@ -50,10 +52,10 @@ const ModalEditChannel = () => {
     },
     validationSchema: Yup.object({
       name: Yup.string()
-        .min(3, 'Имя должно быть не менее 3 символов')
-        .max(20, 'Имя не должно превышать 20 символов')
-        .notOneOf(channels.map((channel) => channel.name), 'Канал с таким именем уже существует')
-        .required('Обязательное поле'),
+        .min(3, t('modals.editChannel.fields.name.errors.minLength'))
+        .max(20, t('modals.editChannel.fields.name.errors.maxLength'))
+        .notOneOf(channels.map((channel) => channel.name), t('modals.editChannel.fields.name.errors.exist'))
+        .required(t('modals.editChannel.fields.name.errors.required')),
     }),
     onSubmit,
   });
@@ -71,7 +73,7 @@ const ModalEditChannel = () => {
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
-              <div className="modal-title h4">Переименовать канал</div>
+              <div className="modal-title h4">{t('modals.editChannel.title')}</div>
               <button type="button" aria-label="Close" className="btn btn-close" onClick={() => dispatch(toggleEditChannelModal())} />
             </div>
             <div className="modal-body">
@@ -84,15 +86,15 @@ const ModalEditChannel = () => {
                     onChange={formik.handleChange}
                     value={formik.values.name}
                   />
-                  <label htmlFor="name" className="visually-hidden">Имя канала</label>
+                  <label htmlFor="name" className="visually-hidden">{t('modals.editChannel.fields.name.name')}</label>
                   <div className="invalid-feedback">
                     {formik.touched.name && formik.errors.name ? formik.errors.name : null}
                   </div>
                   <div className="d-flex justify-content-end">
                     <button type="button" className="me-2 btn btn-secondary" onClick={() => dispatch(toggleEditChannelModal())}>
-                      Отменить
+                      {t('modals.editChannel.buttons.cancel')}
                     </button>
-                    <button type="submit" className="btn btn-primary" disabled={formik.isSubmitting}>Отправить</button>
+                    <button type="submit" className="btn btn-primary" disabled={formik.isSubmitting}>{t('modals.editChannel.buttons.submit')}</button>
                   </div>
                 </div>
               </form>

@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { logout } from '../slices/authSlice';
 import ModalAddChannel from './ModalAddChannel';
 import ModalRemoveChannel from './ModalRemoveChannel';
 import ModalEditChannel from './ModalEditChannel';
 
 const Header = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { isSignedIn } = useSelector((state) => state.auth);
 
@@ -20,7 +22,7 @@ const Header = () => {
         <a className="navbar-brand" href="/">Hexlet Chat</a>
         {isSignedIn && (
         <button type="button" className="btn btn-primary" onClick={handleLogout}>
-          Выйти
+          {t('buildPage.buttons.logout')}
         </button>
         )}
       </div>

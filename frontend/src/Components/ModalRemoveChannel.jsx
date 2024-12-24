@@ -1,12 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import { setCurrentChannelId, removeChannel, toggleRemoveChannelModal } from '../slices/channelsSlice';
 import { removeMessagesByChannel } from '../slices/messagesSlice';
 
 const { token } = window.localStorage;
 
 const ModalRemoveChannel = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const data = useSelector((state) => ({
@@ -66,7 +68,7 @@ const ModalRemoveChannel = () => {
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
-              <div className="modal-title h4">Удалить канал</div>
+              <div className="modal-title h4">{t('modals.removeChannel.title')}</div>
               <button
                 type="button"
                 aria-label="Close"
@@ -75,17 +77,17 @@ const ModalRemoveChannel = () => {
               />
             </div>
             <div className="modal-body">
-              <p className="lead">Уверены?</p>
+              <p className="lead">{t('modals.removeChannel.message')}</p>
               <div className="d-flex justify-content-end">
                 <button
                   type="button"
                   className="me-2 btn btn-secondary"
                   onClick={() => dispatch(toggleRemoveChannelModal())}
                 >
-                  Отменить
+                  {t('modals.removeChannel.buttons.cancel')}
                 </button>
                 <button type="button" className="btn btn-danger" onClick={handleRemove}>
-                  Удалить
+                  {t('modals.removeChannel.buttons.submit')}
                 </button>
               </div>
             </div>

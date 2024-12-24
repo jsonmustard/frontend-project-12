@@ -1,10 +1,18 @@
 {
+  "buildPage": {
+    "buttons": {
+      "logout": "Выйти"
+    }
+  },
   "loginPage": {
     "form": {
       "title": "Войти",
       "fieldsLabels": {
         "username": "Ваш ник",
         "password": "Пароль"
+      },
+      "errors": {
+        "wrongData": "Неверные имя пользователя или пароль"
       },
       "submitButton": "Войти",
       "footer": {
@@ -22,8 +30,55 @@
     "messagesCounter_one": "сообщение",
     "messagesCounter_few": "сообщения",
     "messagesCounter_many": "сообщений",
+    "messageInputPlaceholder": "Введите сообщение...",
     "removeButton": "Удалить",
     "renameButton": "Переименовать"
+  },
+  "modals": {
+    "addChannel": {
+      "title": "Добавить канал",
+      "fields": {
+        "name": {
+          "name": "Имя канала",
+          "errors": {
+            "minLength": "Имя должно быть не менее 3 символов",
+            "maxLength": "Имя не должно превышать 20 символов",
+            "exist": "Канал с таким именем уже существует",
+            "required": "Обязательное поле"
+          }
+        }
+      },
+      "buttons": {
+        "cancel": "Отменить",
+        "submit": "Отправить"
+      }
+    },
+    "editChannel": {
+      "title": "Переименовать канал",
+      "fields": {
+        "name": {
+          "name": "Имя канала",
+          "errors": {
+            "minLength": "Имя должно быть не менее 3 символов",
+            "maxLength": "Имя не должно превышать 20 символов",
+            "exist": "Канал с таким именем уже существует",
+            "required": "Обязательное поле"
+          }
+        }
+      },
+      "buttons": {
+        "cancel": "Отменить",
+        "submit": "Отправить"
+      }
+    },
+    "removeChannel": {
+      "title": "Удалить канал",
+      "message": "Уверены?",
+      "buttons": {
+        "cancel": "Отменить",
+        "submit": "Удалить"
+      }
+    }
   },
   "signUpPage": {
     "form": {

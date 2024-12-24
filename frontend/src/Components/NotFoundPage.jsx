@@ -5,7 +5,7 @@ const NotFoundPage = () => {
   return (
     <div className="text-center h-100">
       <img
-        alt="Страница не найдена"
+        alt={t('notFoundPage.title')}
         className="img-fluid h-25 w-25"
         src="/404.svg"
       />
