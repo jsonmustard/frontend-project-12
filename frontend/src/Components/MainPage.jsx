@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 import * as Yup from 'yup';
 import { compose } from '@reduxjs/toolkit';
 import { io } from 'socket.io-client';
@@ -177,7 +178,7 @@ const MainPage = () => {
                     onClick={(e) => handleChannelClick(e.target.id)}
                   >
                     <span className="me-1">#</span>
-                    {channel.name}
+                    {filter.clean(channel.name)}
                   </button>
                   {channel.removable && (
                     <button
@@ -231,7 +232,7 @@ const MainPage = () => {
               <p className="m-0">
                 <b>
                   {'# '}
-                  {currentChannel?.name}
+                  {filter.clean(currentChannel?.name)}
                 </b>
               </p>
               <span className="text-muted">
@@ -254,7 +255,7 @@ const MainPage = () => {
                   <div className="text-break mb-2" key={msg.id}>
                     <b>{msg.username}</b>
                     {': '}
-                    {msg.body}
+                    {filter.clean(msg.body)}
                   </div>
                 ))}
             </div>

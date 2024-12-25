@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 import { ToastContainer } from 'react-toastify';
 import { logout } from '../slices/authSlice';
 import ModalAddChannel from './ModalAddChannel';
@@ -8,6 +9,7 @@ import ModalEditChannel from './ModalEditChannel';
 
 const Header = () => {
   const { t } = useTranslation();
+  filter.loadDictionary('en');
   const dispatch = useDispatch();
   const { isSignedIn } = useSelector((state) => state.auth);
 
