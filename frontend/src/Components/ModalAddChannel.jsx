@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { io } from 'socket.io-client';
@@ -14,6 +15,19 @@ const ModalAddChannel = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { channels } = useSelector((state) => state.channels);
+
+  const showNotification = () => {
+    toast.success(t('modals.addChannel.notification'), {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
 
   const onSubmit = (values, { setSubmitting, resetForm, setFieldError }) => {
     const newChannel = {
@@ -29,6 +43,7 @@ const ModalAddChannel = () => {
       .then(() => {
         resetForm();
         dispatch(toggleAddChannelModal());
+        showNotification();        
       })
       .catch((error) => {
         console.error('Error sending message:', error);

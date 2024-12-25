@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { setCurrentChannelId, removeChannel, toggleRemoveChannelModal } from '../slices/channelsSlice';
 import { removeMessagesByChannel } from '../slices/messagesSlice';
@@ -10,6 +11,19 @@ const { token } = window.localStorage;
 const ModalRemoveChannel = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+
+    const showNotification = () => {
+      toast.success(t('modals.removeChannel.notification'), {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    };
 
   const data = useSelector((state) => ({
     ...state.auth,
@@ -54,6 +68,7 @@ const ModalRemoveChannel = () => {
       }
 
       dispatch(toggleRemoveChannelModal());
+      showNotification(); 
     })
     .catch((error) => {
       console.error('Error deleting channel or messages:', error);

@@ -51,7 +51,8 @@
       "buttons": {
         "cancel": "Отменить",
         "submit": "Отправить"
-      }
+      },
+      "notification": "Канал создан"
     },
     "editChannel": {
       "title": "Переименовать канал",
@@ -69,7 +70,8 @@
       "buttons": {
         "cancel": "Отменить",
         "submit": "Отправить"
-      }
+      },
+      "notification": "Канал переименован"
     },
     "removeChannel": {
       "title": "Удалить канал",
@@ -77,7 +79,8 @@
       "buttons": {
         "cancel": "Отменить",
         "submit": "Удалить"
-      }
+      },
+      "notification": "Канал удалён"
     }
   },
   "signUpPage": {

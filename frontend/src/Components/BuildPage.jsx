@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { ToastContainer } from 'react-toastify';
 import { logout } from '../slices/authSlice';
 import ModalAddChannel from './ModalAddChannel';
 import ModalRemoveChannel from './ModalRemoveChannel';
@@ -41,7 +42,7 @@ const BuildPage = ({ PageComponent }) => {
               <Header />
               <PageComponent />
             </div>
-            <div className="Toastify" />
+            <ToastContainer />
           </div>
         </div>
       </div>

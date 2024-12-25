@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { io } from 'socket.io-client';
@@ -13,6 +14,19 @@ const socket = io();
 const ModalEditChannel = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+
+      const showNotification = () => {
+        toast.success(t('modals.editChannel.notification'), {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      };
 
   const data = useSelector((state) => ({
     ...state.channels,
@@ -37,6 +51,7 @@ const ModalEditChannel = () => {
       .then(() => {
         resetForm();
         dispatch(toggleEditChannelModal());
+        showNotification();
       })
       .catch((error) => {
         console.error('Error sending message:', error);
