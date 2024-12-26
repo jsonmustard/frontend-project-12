@@ -1,9 +1,7 @@
 /* eslint-disable functional/no-expression-statement */
-import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+/* eslint-disable functional/no-conditional-statement */
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import axios from 'axios';
 
 const LoginPage = () => {
@@ -14,23 +12,10 @@ const LoginPage = () => {
     password: '',
   };
 
-  const validationSchema = Yup.object().shape({
-    // username: Yup.string().required('Обязательное поле'),
-    // password: Yup.string().required('Обязательное поле'),
-  });
-
-  // const data = useSelector((state) => state.auth);
-
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
-
   const onSubmit = (values, { setSubmitting, setFieldError }) => {
     axios.post('/api/v1/login', { username: values.username, password: values.password })
       .then((response) => {
-        console.log(response)
         if (response.status === 200) {
-          console.log(response);
           window.localStorage.setItem('token', response.data.token);
           window.localStorage.setItem('username', response.data.username);
           window.location.replace('/');
@@ -48,7 +33,6 @@ const LoginPage = () => {
 
   const formik = useFormik({
     initialValues,
-    validationSchema,
     onSubmit,
   });
 

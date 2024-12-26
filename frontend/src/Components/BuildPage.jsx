@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-expression-statement */
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
@@ -34,7 +35,11 @@ const Header = () => {
 };
 
 const BuildPage = ({ PageComponent }) => {
-  const { isActiveAddChannelModal, isActiveRemoveChannelModal, isActiveEditChannelModal } = useSelector((state) => state.channels);
+  const {
+    isActiveAddChannelModal,
+    isActiveRemoveChannelModal,
+    isActiveEditChannelModal,
+  } = useSelector((state) => state.channels);
   return (
     <>
       <div className={`h-100 bg-light ${isActiveAddChannelModal ? 'modal-open' : ''}`} style={{ 'overscroll-behavior-x': 'none', overflow: 'hidden' }}>

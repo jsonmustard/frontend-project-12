@@ -1,3 +1,5 @@
+/* eslint-disable functional/no-expression-statement */
+/* eslint-disable functional/no-conditional-statement */
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -15,31 +17,43 @@ const channelsSlice = createSlice({
   initialState,
   reducers: {
     setChannels(state, action) {
-      state.channels = action.payload.channels;
+      return { ...state, channels: action.payload.channels };
     },
     setCurrentChannelId(state, action) {
-      state.currentChannelId = action.payload.currentChannelId;
+      return { ...state, currentChannelId: action.payload.currentChannelId };
     },
     setChannelToRemoveId(state, action) {
-      state.channelToRemoveId = action.payload.channelToRemoveId;
-      if (state.currentChannelId === state.channelToRemoveId) {
-        state.currentChannelId = 1;
+      const newState = {
+        ...state,
+        channelToRemoveId: action.payload.channelToRemoveId,
+      };
+      if (newState.currentChannelId === newState.channelToRemoveId) {
+        newState.currentChannelId = 1;
       }
+      return newState;
     },
     setChannelToEditId(state, action) {
-      state.channelToEditId = action.payload.channelToEditId;
+      return { ...state, channelToEditId: action.payload.channelToEditId };
     },
     toggleAddChannelModal(state) {
-      state.isActiveAddChannelModal = !state.isActiveAddChannelModal;
+      return {
+        ...state,
+        isActiveAddChannelModal: !state.isActiveAddChannelModal,
+      };
     },
     toggleRemoveChannelModal(state, action) {
-      state.isActiveRemoveChannelModal = !state.isActiveRemoveChannelModal;
-      state.channelToRemoveId = action.payload || null;
+      return {
+        ...state,
+        isActiveRemoveChannelModal: !state.isActiveRemoveChannelModal,
+        channelToRemoveId: action.payload || null,
+      };
     },
     toggleEditChannelModal(state, action) {
-      state.isActiveEditChannelModal = !state.isActiveEditChannelModal;
-      state.channelToEditId = action.payload || null;
-      console.log(state.isActiveEditChannelModal);
+      return {
+        ...state,
+        isActiveEditChannelModal: !state.isActiveEditChannelModal,
+        channelToEditId: action.payload || null,
+      };
     },
     addChannel(state, action) {
       const newChannel = action.payload.channels;
@@ -47,18 +61,32 @@ const channelsSlice = createSlice({
         (channel) => channel.id === newChannel.id,
       );
       if (!exists) {
-        state.channels = [...state.channels, newChannel];
-        state.currentChannelId = newChannel.id; // Делаем его текущим
+        return {
+          ...state,
+          channels: [...state.channels, newChannel],
+          currentChannelId: newChannel.id,
+        };
       }
+      return state;
     },
     removeChannel(state, action) {
-      state.channels = state.channels.filter(
-        (channel) => channel.id !== action.payload,
-      );
-      state.currentChannelId = 1;
+      return {
+        ...state,
+        channels: state.channels.filter(
+          (channel) => channel.id !== action.payload,
+        ),
+        currentChannelId: 1,
+      };
     },
     editChannel(state, action) {
-      state.channels = state.channels.map((channel) => (channel.id === action.payload.channels.id ? { ...channel, name: action.payload.channels.name } : channel));
+      return {
+        ...state,
+        channels: state.channels.map((channel) => (
+          channel.id === action.payload.channels.id
+            ? { ...channel, name: action.payload.channels.name }
+            : channel
+        )),
+      };
     },
   },
 });

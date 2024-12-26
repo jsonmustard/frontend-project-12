@@ -1,3 +1,5 @@
+/* eslint-disable functional/no-expression-statement */
+/* eslint-disable functional/no-conditional-statement */
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -12,14 +14,19 @@ const authSlice = createSlice({
     loadAuthData: (state) => {
       const token = window.localStorage.getItem('token');
       if (token) {
-        state.token = token;
-        state.isSignedIn = true;
+        return {
+          ...state,
+          token,
+          isSignedIn: true,
+        };
       }
+      return state;
     },
-    logout(state) {
-      state.token = null;
-      state.isSignedIn = false;
-    },
+    logout: (state) => ({
+      ...state,
+      token: null,
+      isSignedIn: false,
+    }),
   },
 });
 

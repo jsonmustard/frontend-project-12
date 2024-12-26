@@ -1,3 +1,5 @@
+/* eslint-disable functional/no-expression-statement */
+/* eslint-disable functional/no-conditional-statement */
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';

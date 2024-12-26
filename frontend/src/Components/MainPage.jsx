@@ -1,4 +1,5 @@
 /* eslint-disable functional/no-expression-statement */
+/* eslint-disable functional/no-conditional-statement */
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -6,7 +7,6 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import * as Yup from 'yup';
-import { compose } from '@reduxjs/toolkit';
 import { io } from 'socket.io-client';
 import {
   setChannels,
@@ -33,7 +33,7 @@ const MainPage = () => {
   }));
 
   const {
-    auth, channels, messages, currentChannelId,
+    channels, messages, currentChannelId,
   } = data;
 
   const initialValues = {
@@ -44,7 +44,7 @@ const MainPage = () => {
 
   const dispatch = useDispatch();
 
-  const onSubmit = (values, { setSubmitting, resetForm, setFieldError }) => {
+  const onSubmit = (values, { setSubmitting, resetForm }) => {
     const newMessage = {
       body: values.body,
       channelId: currentChannelId,
@@ -116,12 +116,10 @@ const MainPage = () => {
     });
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
-
   const handleChannelClick = (id) => dispatch(setCurrentChannelId({ currentChannelId: id }));
-  const handleAddChannelModal = (status) => dispatch(toggleAddChannelModal({ isActiveAddChannelModal: status }));
+  const handleAddChannelModal = (status) => {
+    dispatch(toggleAddChannelModal({ isActiveAddChannelModal: status }));
+  };
 
   const handleRemoveChannelModal = (status, channelId) => {
     dispatch(toggleRemoveChannelModal({ isActiveRemoveChannelModal: status }));
@@ -131,7 +129,6 @@ const MainPage = () => {
   const handleEditChannelModal = (status, channelId) => {
     dispatch(toggleEditChannelModal({ isActiveRenameChannelModal: status }));
     dispatch(setChannelToEditId({ channelToEditId: channelId }));
-    console.log(status, channelId);
   };
 
   const currentChannel = channels.find(
@@ -203,22 +200,20 @@ const MainPage = () => {
                       className="dropdown-menu"
                       aria-labelledby={`dropdown-${channel.id}`}
                     >
-                      <a
+                      <button
                         className="dropdown-item"
-                        role="button"
-                        tabIndex="0"
+                        type="button"
                         onClick={() => handleRemoveChannelModal(true, channel.id)}
                       >
                         {t('mainPage.removeButton')}
-                      </a>
-                      <a
+                      </button>
+                      <button
                         className="dropdown-item"
-                        role="button"
-                        tabIndex="0"
+                        type="button"
                         onClick={() => handleEditChannelModal(true, channel.id)}
                       >
-                        {t('mainPage.renameButton')}
-                      </a>
+                        {t('mainPage.editButton')}
+                      </button>
                     </div>
                   )}
                 </div>

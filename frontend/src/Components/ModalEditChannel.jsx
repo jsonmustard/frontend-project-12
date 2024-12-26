@@ -1,8 +1,9 @@
+/* eslint-disable functional/no-expression-statement */
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { io } from 'socket.io-client';
@@ -15,18 +16,18 @@ const ModalEditChannel = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-      const showNotification = () => {
-        toast.success(t('modals.editChannel.notification'), {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      };
+  const showNotification = () => {
+    toast.success(t('modals.editChannel.notification'), {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+  };
 
   const data = useSelector((state) => ({
     ...state.channels,
@@ -37,7 +38,7 @@ const ModalEditChannel = () => {
     channels, channelToEditId,
   } = data;
 
-  const onSubmit = (values, { setSubmitting, resetForm, setFieldError }) => {
+  const onSubmit = (values, { setSubmitting, resetForm }) => {
     const editedChannel = {
       name: values.name,
     };

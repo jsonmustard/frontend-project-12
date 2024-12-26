@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-expression-statement */
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
@@ -18,18 +19,18 @@ const ModalAddChannel = () => {
 
   const showNotification = () => {
     toast.success(t('modals.addChannel.notification'), {
-      position: "top-right",
+      position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light",
+      theme: 'light',
     });
   };
 
-  const onSubmit = (values, { setSubmitting, resetForm, setFieldError }) => {
+  const onSubmit = (values, { setSubmitting, resetForm }) => {
     const newChannel = {
       name: values.name,
     };
@@ -43,7 +44,7 @@ const ModalAddChannel = () => {
       .then(() => {
         resetForm();
         dispatch(toggleAddChannelModal());
-        showNotification();        
+        showNotification();
       })
       .catch((error) => {
         console.error('Error sending message:', error);

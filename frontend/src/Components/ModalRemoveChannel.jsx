@@ -1,3 +1,5 @@
+/* eslint-disable functional/no-expression-statement */
+/* eslint-disable functional/no-conditional-statement */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
@@ -12,18 +14,18 @@ const ModalRemoveChannel = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-    const showNotification = () => {
-      toast.success(t('modals.removeChannel.notification'), {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    };
+  const showNotification = () => {
+    toast.success(t('modals.removeChannel.notification'), {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+  };
 
   const data = useSelector((state) => ({
     ...state.auth,
@@ -34,47 +36,42 @@ const ModalRemoveChannel = () => {
   }));
 
   const {
-    auth, channels, messages, currentChannelId, channelToRemoveId,
+    channels, messages, channelToRemoveId,
   } = data;
 
   const handleRemove = () => {
     const messagesToDelete = messages.filter((message) => message.channelId === channelToRemoveId);
 
-    const deleteMessagesPromises = messagesToDelete.map((message) =>
-      axios.delete(`/api/v1/messages/${message.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-    );
+    const deleteMessagesPromises = messagesToDelete.map((message) => axios.delete(`/api/v1/messages/${message.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }));
 
     Promise.all([...deleteMessagesPromises])
-    .then(() => {
-      return axios.delete(`/api/v1/channels/${channelToRemoveId}`, {
+      .then(() => axios.delete(`/api/v1/channels/${channelToRemoveId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+      }))
+      .then(() => {
+        dispatch(removeChannel(channelToRemoveId));
+        dispatch(removeMessagesByChannel(channelToRemoveId));
+
+        const remainingChannels = channels.filter((channel) => channel.id !== channelToRemoveId);
+        if (remainingChannels.length > 0) {
+          dispatch(setCurrentChannelId({ currentChannelId: remainingChannels[0].id }));
+        } else {
+          dispatch(setCurrentChannelId({ currentChannelId: null }));
+        }
+
+        dispatch(toggleRemoveChannelModal());
+        showNotification();
+      })
+      .catch((error) => {
+        console.error('Error deleting channel or messages:', error);
       });
-    })
-    .then(() => {
-      dispatch(removeChannel(channelToRemoveId));
-      dispatch(removeMessagesByChannel(channelToRemoveId));
-
-      const remainingChannels = channels.filter(channel => channel.id !== channelToRemoveId);
-      if (remainingChannels.length > 0) {
-        dispatch(setCurrentChannelId({ currentChannelId: remainingChannels[0].id }));
-      } else {
-        dispatch(setCurrentChannelId({ currentChannelId: null })); // Если каналов нет, сбрасываем активный
-      }
-
-      dispatch(toggleRemoveChannelModal());
-      showNotification(); 
-    })
-    .catch((error) => {
-      console.error('Error deleting channel or messages:', error);
-    });
-};
-
+  };
 
   return (
     <>

@@ -32,7 +32,7 @@
     "messagesCounter_many": "сообщений",
     "messageInputPlaceholder": "Введите сообщение...",
     "removeButton": "Удалить",
-    "renameButton": "Переименовать"
+    "editButton": "Переименовать"
   },
   "modals": {
     "addChannel": {

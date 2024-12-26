@@ -1,3 +1,5 @@
+/* eslint-disable functional/no-expression-statement */
+/* eslint-disable functional/no-conditional-statement */
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -9,16 +11,23 @@ const messagesSlice = createSlice({
   initialState,
   reducers: {
     setMessages(state, action) {
-      state.messages = action.payload.messages;
+      return { ...state, messages: action.payload.messages };
     },
     addMessage(state, action) {
       const exists = state.messages.some((item) => item.id === action.payload.messages.id);
       if (!exists) {
-        state.messages = [...state.messages, action.payload.messages];
+        return {
+          ...state,
+          messages: [...state.messages, action.payload.messages],
+        };
       }
+      return state;
     },
     removeMessagesByChannel(state, action) {
-      state.messages = state.messages.filter((message) => message.channelId !== action.payload);
+      return {
+        ...state,
+        messages: state.messages.filter((message) => message.channelId !== action.payload),
+      };
     },
   },
 });
