@@ -32,7 +32,8 @@
     "messagesCounter_many": "сообщений",
     "messageInputPlaceholder": "Введите сообщение...",
     "removeButton": "Удалить",
-    "editButton": "Переименовать"
+    "editButton": "Переименовать",
+    "channelManagement": "Управление каналом"
   },
   "modals": {
     "addChannel": {
@@ -41,8 +42,8 @@
         "name": {
           "name": "Имя канала",
           "errors": {
-            "minLength": "Имя должно быть не менее 3 символов",
-            "maxLength": "Имя не должно превышать 20 символов",
+            "minLength": "От 3 до 20 символов",
+            "maxLength": "От 3 до 20 символов",
             "exist": "Канал с таким именем уже существует",
             "required": "Обязательное поле"
           }

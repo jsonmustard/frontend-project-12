@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { io } from 'socket.io-client';
-import { addChannel, toggleAddChannelModal } from '../slices/channelsSlice';
+import { addChannel, toggleAddChannelModal, changeCurrentChannelId } from '../slices/channelsSlice';
 
 const { token } = window.localStorage;
 const socket = io();
@@ -41,7 +41,9 @@ const ModalAddChannel = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => {
+      .then((response) => {
+        console.log(response.data.id);
+        dispatch(changeCurrentChannelId(response.data.id));
         resetForm();
         dispatch(toggleAddChannelModal());
         showNotification();

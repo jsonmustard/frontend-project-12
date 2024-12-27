@@ -118,7 +118,7 @@ const SignUpPage = () => {
                   <div className="invalid-tooltip">{formik.errors.confirmPassword}</div>
                   )}
                 </div>
-                <button type="submit" className="w-100 btn btn-outline-primary" disabled={formik.isSubmitting}>
+                <button aria-label="general" type="submit" className="w-100 btn btn-outline-primary" disabled={formik.isSubmitting}>
                   {t('signUpPage.form.submitButton')}
                 </button>
               </form>

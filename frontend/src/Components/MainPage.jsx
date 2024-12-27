@@ -169,7 +169,7 @@ const MainPage = () => {
                   <button
                     id={channel.id}
                     type="button"
-                    className={`w-100 rounded-0 text-start btn ${
+                    className={`w-100 rounded-0 text-start text-truncate btn ${
                       currentChannelId === channel.id ? 'btn-secondary' : ''
                     }`}
                     onClick={(e) => handleChannelClick(e.target.id)}
@@ -190,7 +190,7 @@ const MainPage = () => {
                       aria-controls={`dropdown-menu-${channel.id}`}
                     >
                       <span className="visually-hidden">
-                        {t('channelManagement')}
+                        {t('mainPage.channelManagement')}
                       </span>
                     </button>
                   )}
@@ -267,6 +267,7 @@ const MainPage = () => {
                     name="body"
                     placeholder={t('mainPage.messageInputPlaceholder')}
                     className="border-0 p-0 ps-2 form-control"
+                    aria-label="Новое сообщение"
                   />
                   <button
                     type="submit"
