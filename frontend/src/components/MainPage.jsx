@@ -7,8 +7,10 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import * as Yup from 'yup';
-import { io } from 'socket.io-client';
+import socket from '../socket';
 import {
+  addChannel,
+  editChannel,
   setChannels,
   setCurrentChannelId,
   setChannelToRemoveId,
@@ -20,7 +22,6 @@ import {
 import { setMessages, addMessage } from '../slices/messagesSlice';
 
 const { token, username } = window.localStorage;
-const socket = io();
 
 const MainPage = () => {
   const { t } = useTranslation();
@@ -113,6 +114,14 @@ const MainPage = () => {
 
     socket.on('newMessage', (payload) => {
       dispatch(addMessage({ messages: payload }));
+    });
+
+    socket.on('newChannel', (payload) => {
+      dispatch(addChannel({ channels: payload }));
+    });
+
+    socket.on('renameChannel', (payload) => {
+      dispatch(editChannel({ channels: payload }));
     });
   }, [dispatch]);
 

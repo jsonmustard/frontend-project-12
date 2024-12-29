@@ -1,16 +1,13 @@
 /* eslint-disable functional/no-expression-statement */
-import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { io } from 'socket.io-client';
-import { editChannel, toggleEditChannelModal } from '../slices/channelsSlice';
+import { toggleEditChannelModal } from '../slices/channelsSlice';
 
 const { token } = window.localStorage;
-const socket = io();
 
 const ModalEditChannel = () => {
   const { t } = useTranslation();
@@ -75,12 +72,6 @@ const ModalEditChannel = () => {
     }),
     onSubmit,
   });
-
-  useEffect(() => {
-    socket.on('renameChannel', (payload) => {
-      dispatch(editChannel({ channels: payload }));
-    });
-  }, [dispatch]);
 
   return (
     <>

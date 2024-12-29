@@ -6,11 +6,10 @@ import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { io } from 'socket.io-client';
+import socket from '../socket';
 import { addChannel, toggleAddChannelModal, changeCurrentChannelId } from '../slices/channelsSlice';
 
 const { token } = window.localStorage;
-const socket = io();
 
 const ModalAddChannel = () => {
   const { t } = useTranslation();
@@ -72,6 +71,7 @@ const ModalAddChannel = () => {
 
   useEffect(() => {
     socket.on('newChannel', (payload) => {
+      console.log('New channel');
       dispatch(addChannel({ channels: payload }));
     });
   }, [dispatch]);
