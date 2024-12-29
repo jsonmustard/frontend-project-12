@@ -1,0 +1,109 @@
+{
+  "buildPage": {
+    "buttons": {
+      "logout": "Выйти"
+    }
+  },
+  "loginPage": {
+    "form": {
+      "title": "Войти",
+      "fieldsLabels": {
+        "username": "Ваш ник",
+        "password": "Пароль"
+      },
+      "errors": {
+        "wrongData": "Неверные имя пользователя или пароль"
+      },
+      "submitButton": "Войти",
+      "footer": {
+        "notAUser": "Нет аккаунта?",
+        "signUp": "Регистрация"
+      }
+    }
+  },
+  "notFoundPage": {
+    "title": "Страница не найдена",
+    "toMainText": "Но вы можете перейти",
+    "toMainLink": "на главную страницу"
+  },
+  "mainPage": {
+    "messagesCounter_one": "сообщение",
+    "messagesCounter_few": "сообщения",
+    "messagesCounter_many": "сообщений",
+    "messageInputPlaceholder": "Введите сообщение...",
+    "removeButton": "Удалить",
+    "editButton": "Переименовать",
+    "channelManagement": "Управление каналом"
+  },
+  "modals": {
+    "addChannel": {
+      "title": "Добавить канал",
+      "fields": {
+        "name": {
+          "name": "Имя канала",
+          "errors": {
+            "minLength": "От 3 до 20 символов",
+            "maxLength": "От 3 до 20 символов",
+            "exist": "Канал с таким именем уже существует",
+            "required": "Обязательное поле"
+          }
+        }
+      },
+      "buttons": {
+        "cancel": "Отменить",
+        "submit": "Отправить"
+      },
+      "notification": "Канал создан"
+    },
+    "editChannel": {
+      "title": "Переименовать канал",
+      "fields": {
+        "name": {
+          "name": "Имя канала",
+          "errors": {
+            "minLength": "Имя должно быть не менее 3 символов",
+            "maxLength": "Имя не должно превышать 20 символов",
+            "exist": "Канал с таким именем уже существует",
+            "required": "Обязательное поле"
+          }
+        }
+      },
+      "buttons": {
+        "cancel": "Отменить",
+        "submit": "Отправить"
+      },
+      "notification": "Канал переименован"
+    },
+    "removeChannel": {
+      "title": "Удалить канал",
+      "message": "Уверены?",
+      "buttons": {
+        "cancel": "Отменить",
+        "submit": "Удалить"
+      },
+      "notification": "Канал удалён"
+    }
+  },
+  "signUpPage": {
+    "form": {
+      "title": "Регистрация",
+      "username": {
+        "fieldName": "Имя пользователя",
+        "lenghtError": "От 3 до 20 символов"
+      },
+      "password": {
+        "fieldName": "Пароль",
+        "lenghtError": "Не менее 6 символов"
+      },
+      "confirmPassword": {
+        "fieldName": "Подтвердите пароль",
+        "matchError": "Пароли должны совпадать"
+      },
+      "errors": {
+        "fieldRequired": "Обязательное поле",
+        "userExists": "Такой пользователь уже существует"
+      },
+      "submitButton": "Зарегистрироваться"
+    }
+  }
+}

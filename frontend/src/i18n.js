@@ -25,7 +25,7 @@ i18n
     fallbackLng: 'ru',
     debug: true,
     backend: {
-      loadPath: (lng) => `/src/locales/${lng}/translation.json`,
+      loadPath: (lng) => `/locales/${lng}/translation.json`,
     },
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
