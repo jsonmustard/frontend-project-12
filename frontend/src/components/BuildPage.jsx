@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-expression-statement */
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';

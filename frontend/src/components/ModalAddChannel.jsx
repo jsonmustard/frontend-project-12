@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-expression-statement */
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';

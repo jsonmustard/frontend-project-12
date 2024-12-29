@@ -1,5 +1,3 @@
-/* eslint-disable functional/no-expression-statement */
-/* eslint-disable functional/no-conditional-statement */
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
