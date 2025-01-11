@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { setCurrentChannelId, removeChannel, toggleRemoveChannelModal } from '../slices/channelsSlice';
-import { removeMessagesByChannel } from '../slices/messagesSlice';
+import { setCurrentChannelId, removeChannel, toggleRemoveChannelModal } from '../../slices/channelsSlice';
+import { removeMessagesByChannel } from '../../slices/messagesSlice';
 
 const { token } = window.localStorage;
 

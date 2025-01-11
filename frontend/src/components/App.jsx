@@ -2,6 +2,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { loadAuthData } from '../slices/authSlice';
+import { addMessage } from '../slices/messagesSlice';
+import socket from '../socket';
+import {
+  addChannel,
+  editChannel,
+} from '../slices/channelsSlice';
 import BuildPage from './BuildPage';
 import NotFoundPage from './NotFoundPage';
 import MainPage from './MainPage';
@@ -19,6 +25,18 @@ const App = () => {
     }
 
     dispatch(loadAuthData());
+
+    socket.on('newMessage', (payload) => {
+      dispatch(addMessage({ messages: payload }));
+    });
+
+    socket.on('newChannel', (payload) => {
+      dispatch(addChannel({ channels: payload }));
+    });
+
+    socket.on('renameChannel', (payload) => {
+      dispatch(editChannel({ channels: payload }));
+    });
   }, [dispatch]);
 
   return (

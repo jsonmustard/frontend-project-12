@@ -8,9 +8,11 @@ import './styles.scss';
 import 'bootstrap';
 
 const rollbarConfig = {
-  accessToken: 'bd0ba53e1b4f4c8d9feddbb300b30c80',
+  accessToken: import.meta.env.VITE_ROLLBAR_ACCESS_TOKEN,
   environment: 'testenv',
 };
+
+console.log(import.meta.env.VITE_ROLLBAR_ACCESS_TOKEN)
 
 const init = async () => (
   <RollbarProvider config={rollbarConfig}>

@@ -3,9 +3,7 @@ import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import { ToastContainer } from 'react-toastify';
 import { logout } from '../slices/authSlice';
-import ModalAddChannel from './ModalAddChannel';
-import ModalRemoveChannel from './ModalRemoveChannel';
-import ModalEditChannel from './ModalEditChannel';
+import getModal from './modals/index.js';
 
 const Header = () => {
   const { t } = useTranslation();
@@ -52,9 +50,9 @@ const BuildPage = ({ PageComponent }) => {
           </div>
         </div>
       </div>
-      {isActiveAddChannelModal ? <ModalAddChannel /> : ''}
-      {isActiveRemoveChannelModal ? <ModalRemoveChannel /> : ''}
-      {isActiveEditChannelModal ? <ModalEditChannel /> : ''}
+      {isActiveAddChannelModal ? getModal('AddChannel') : ''}
+      {isActiveRemoveChannelModal ? getModal('RemoveChannel') : ''}
+      {isActiveEditChannelModal ? getModal('EditChannel') : ''}
     </>
   );
 };

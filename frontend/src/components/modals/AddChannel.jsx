@@ -1,19 +1,22 @@
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { toggleEditChannelModal } from '../slices/channelsSlice';
+import socket from '../../socket';
+import { addChannel, toggleAddChannelModal, changeCurrentChannelId } from '../../slices/channelsSlice';
 
 const { token } = window.localStorage;
 
-const ModalEditChannel = () => {
+const ModalAddChannel = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const { channels } = useSelector((state) => state.channels);
 
   const showNotification = () => {
-    toast.success(t('modals.editChannel.notification'), {
+    toast.success(t('modals.addChannel.notification'), {
       position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
@@ -25,29 +28,22 @@ const ModalEditChannel = () => {
     });
   };
 
-  const data = useSelector((state) => ({
-    ...state.channels,
-    ...state.channelToEditId,
-  }));
-
-  const {
-    channels, channelToEditId,
-  } = data;
-
   const onSubmit = (values, { setSubmitting, resetForm }) => {
-    const editedChannel = {
+    const newChannel = {
       name: values.name,
     };
 
     axios
-      .patch(`/api/v1/channels/${channelToEditId}`, editedChannel, {
+      .post('/api/v1/channels', newChannel, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => {
+      .then((response) => {
+        console.log(response.data.id);
+        dispatch(changeCurrentChannelId(response.data.id));
         resetForm();
-        dispatch(toggleEditChannelModal());
+        dispatch(toggleAddChannelModal());
         showNotification();
       })
       .catch((error) => {
@@ -64,13 +60,20 @@ const ModalEditChannel = () => {
     },
     validationSchema: Yup.object({
       name: Yup.string()
-        .min(3, t('modals.editChannel.fields.name.errors.minLength'))
-        .max(20, t('modals.editChannel.fields.name.errors.maxLength'))
-        .notOneOf(channels.map((channel) => channel.name), t('modals.editChannel.fields.name.errors.exist'))
-        .required(t('modals.editChannel.fields.name.errors.required')),
+        .min(3, t('modals.addChannel.fields.name.errors.minLength'))
+        .max(20, t('modals.addChannel.fields.name.errors.maxLength'))
+        .notOneOf(channels.map((channel) => channel.name), t('modals.addChannel.fields.name.errors.exist'))
+        .required(t('modals.addChannel.fields.name.errors.required')),
     }),
     onSubmit,
   });
+
+  useEffect(() => {
+    socket.on('newChannel', (payload) => {
+      console.log('New channel');
+      dispatch(addChannel({ channels: payload }));
+    });
+  }, [dispatch]);
 
   return (
     <>
@@ -79,8 +82,8 @@ const ModalEditChannel = () => {
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
-              <div className="modal-title h4">{t('modals.editChannel.title')}</div>
-              <button type="button" aria-label="Close" className="btn btn-close" onClick={() => dispatch(toggleEditChannelModal())} />
+              <div className="modal-title h4">{t('modals.addChannel.title')}</div>
+              <button type="button" aria-label="Close" className="btn btn-close" onClick={() => dispatch(toggleAddChannelModal())} />
             </div>
             <div className="modal-body">
               <form onSubmit={formik.handleSubmit}>
@@ -92,15 +95,15 @@ const ModalEditChannel = () => {
                     onChange={formik.handleChange}
                     value={formik.values.name}
                   />
-                  <label htmlFor="name" className="visually-hidden">{t('modals.editChannel.fields.name.name')}</label>
+                  <label htmlFor="name" className="visually-hidden">{t('modals.addChannel.fields.name.name')}</label>
                   <div className="invalid-feedback">
                     {formik.touched.name && formik.errors.name ? formik.errors.name : null}
                   </div>
                   <div className="d-flex justify-content-end">
-                    <button type="button" className="me-2 btn btn-secondary" onClick={() => dispatch(toggleEditChannelModal())}>
-                      {t('modals.editChannel.buttons.cancel')}
+                    <button type="button" className="me-2 btn btn-secondary" onClick={() => dispatch(toggleAddChannelModal())}>
+                      {t('modals.addChannel.buttons.cancel')}
                     </button>
-                    <button type="submit" className="btn btn-primary" disabled={formik.isSubmitting}>{t('modals.editChannel.buttons.submit')}</button>
+                    <button type="submit" className="btn btn-primary" disabled={formik.isSubmitting}>{t('modals.addChannel.buttons.submit')}</button>
                   </div>
                 </div>
               </form>
@@ -112,4 +115,4 @@ const ModalEditChannel = () => {
   );
 };
 
-export default ModalEditChannel;
+export default ModalAddChannel;

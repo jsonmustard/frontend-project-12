@@ -5,10 +5,7 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import * as Yup from 'yup';
-import socket from '../socket';
 import {
-  addChannel,
-  editChannel,
   setChannels,
   setCurrentChannelId,
   setChannelToRemoveId,
@@ -17,7 +14,7 @@ import {
   toggleRemoveChannelModal,
   toggleEditChannelModal,
 } from '../slices/channelsSlice';
-import { setMessages, addMessage } from '../slices/messagesSlice';
+import { setMessages } from '../slices/messagesSlice';
 
 const { token, username } = window.localStorage;
 
@@ -109,18 +106,6 @@ const MainPage = () => {
       .catch((error) => {
         console.error('Error fetching messages:', error);
       });
-
-    socket.on('newMessage', (payload) => {
-      dispatch(addMessage({ messages: payload }));
-    });
-
-    socket.on('newChannel', (payload) => {
-      dispatch(addChannel({ channels: payload }));
-    });
-
-    socket.on('renameChannel', (payload) => {
-      dispatch(editChannel({ channels: payload }));
-    });
   }, [dispatch]);
 
   const handleChannelClick = (id) => dispatch(setCurrentChannelId({ currentChannelId: id }));
