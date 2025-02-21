@@ -18,7 +18,9 @@ const App = () => {
     (error) => {
       if (error.response?.status === 401) {
         window.localStorage.removeItem('token');
-        window.location.replace('/login');
+        if (window.location.pathname !== '/login') {
+          window.location.replace('/login');
+        }
       }
       return Promise.reject(error);
     }
