@@ -128,7 +128,7 @@ const MainPage = () => {
         console.error('Error fetching messages:', error);
       });
 
-      return null;
+    return null;
   }, [dispatch]);
 
   useEffect(() => {
