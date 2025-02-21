@@ -47,8 +47,13 @@ const LoginPage = () => {
                   alt="Войти"
                 />
               </div>
-              <form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-md-0">
-                <h1 className="text-center mb-4">{t('loginPage.form.title')}</h1>
+              <form
+                onSubmit={formik.handleSubmit}
+                className="col-12 col-md-6 mt-3 mt-md-0"
+              >
+                <h1 className="text-center mb-4">
+                  {t('loginPage.form.title')}
+                </h1>
                 <div className="form-floating mb-3">
                   <input
                     type="text"
@@ -61,10 +66,16 @@ const LoginPage = () => {
                     value={formik.values.username}
                     required
                   />
-                  <label htmlFor="username">{t('loginPage.form.fieldsLabels.username')}</label>
-                  {formik.touched.username && formik.errors.username ? (
-                    <div className="invalid-tooltip">{formik.errors.username}</div>
-                  ) : null}
+                  <label htmlFor="username">
+                    {t('loginPage.form.fieldsLabels.username')}
+                  </label>
+                  {formik.touched.username && formik.errors.username
+                    ? (
+                      <div className="invalid-tooltip">
+                        {formik.errors.username}
+                      </div>
+                    )
+                    : null}
                 </div>
 
                 <div className="form-floating mb-4">
@@ -79,22 +90,35 @@ const LoginPage = () => {
                     value={formik.values.password}
                     required
                   />
-                  <label htmlFor="password">{t('loginPage.form.fieldsLabels.password')}</label>
-                  {formik.touched.password && formik.errors.password ? (
-                    <div className="invalid-tooltip">{formik.errors.password}</div>
-                  ) : null}
+                  <label htmlFor="password">
+                    {t('loginPage.form.fieldsLabels.password')}
+                  </label>
+                  {formik.touched.password && formik.errors.password
+                    ? (
+                    <div className="invalid-tooltip">
+                      {formik.errors.password}
+                    </div>
+                    )
+                    : null}
                 </div>
-
-                <button type="submit" className="w-100 mb-3 btn btn-outline-primary" disabled={formik.isSubmitting}>
+                <button
+                  type="submit"
+                  className="w-100 mb-3 btn btn-outline-primary"
+                  disabled={formik.isSubmitting}
+                >
                   {t('loginPage.form.submitButton')}
                 </button>
               </form>
             </div>
             <div className="card-footer p-4">
               <div className="text-center">
-                <span>{t('loginPage.form.footer.notAUser')}</span>
+                <span>
+                  {t('loginPage.form.footer.notAUser')}
+                </span>
                 {' '}
-                <a href="/signup">{t('loginPage.form.footer.signUp')}</a>
+                <a href="/signup">
+                  {t('loginPage.form.footer.signUp')}
+                </a>
               </div>
             </div>
           </div>

@@ -63,8 +63,13 @@ const SignUpPage = () => {
                   alt={t('signUpPage.form.title')}
                 />
               </div>
-              <form className="w-50" onSubmit={formik.handleSubmit}>
-                <h1 className="text-center mb-4">{t('signUpPage.form.title')}</h1>
+              <form
+                className="w-50"
+                onSubmit={formik.handleSubmit}
+              >
+                <h1 className="text-center mb-4">
+                  {t('signUpPage.form.title')}
+                </h1>
                 <div className="form-floating mb-3">
                   <input
                     name="username"
@@ -76,9 +81,13 @@ const SignUpPage = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.username}
                   />
-                  <label htmlFor="username">{t('signUpPage.form.username.fieldName')}</label>
+                  <label htmlFor="username">
+                    {t('signUpPage.form.username.fieldName')}
+                  </label>
                   {formik.touched.username && formik.errors.username && (
-                  <div className="invalid-tooltip">{formik.errors.username}</div>
+                    <div className="invalid-tooltip">
+                      {formik.errors.username}
+                    </div>
                   )}
                 </div>
                 <div className="form-floating mb-3">
@@ -94,9 +103,13 @@ const SignUpPage = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.password}
                   />
-                  <label htmlFor="password">{t('signUpPage.form.password.fieldName')}</label>
+                  <label htmlFor="password">
+                    {t('signUpPage.form.password.fieldName')}
+                  </label>
                   {formik.touched.password && formik.errors.password && (
-                  <div className="invalid-tooltip">{formik.errors.password}</div>
+                    <div className="invalid-tooltip">
+                      {formik.errors.password}
+                    </div>
                   )}
                 </div>
                 <div className="form-floating mb-4">
@@ -116,7 +129,12 @@ const SignUpPage = () => {
                   <div className="invalid-tooltip">{formik.errors.confirmPassword}</div>
                   )}
                 </div>
-                <button aria-label="general" type="submit" className="w-100 btn btn-outline-primary" disabled={formik.isSubmitting}>
+                <button
+                  aria-label="general"
+                  type="submit"
+                  className="w-100 btn btn-outline-primary"
+                  disabled={formik.isSubmitting}
+                >
                   {t('signUpPage.form.submitButton')}
                 </button>
               </form>

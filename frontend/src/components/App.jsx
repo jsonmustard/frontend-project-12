@@ -4,17 +4,26 @@ import { useEffect } from 'react';
 import { loadAuthData } from '../slices/authSlice';
 import { addMessage } from '../slices/messagesSlice';
 import socket from '../socket';
-import {
-  addChannel,
-  editChannel,
-} from '../slices/channelsSlice';
+import { addChannel, editChannel } from '../slices/channelsSlice';
 import BuildPage from './BuildPage';
 import NotFoundPage from './NotFoundPage';
 import MainPage from './MainPage';
 import LoginPage from './LoginPage';
 import SignUpPage from './SignUpPage';
+import axios from 'axios';
 
 const App = () => {
+  axios.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error.response?.status === 401) {
+        window.localStorage.removeItem('token');
+        window.location.replace('/login');
+      }
+      return Promise.reject(error);
+    }
+  );
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -42,10 +51,17 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="*" element={<BuildPage PageComponent={NotFoundPage} />} />
-        <Route path="/" element={<BuildPage PageComponent={MainPage} />} />
-        <Route path="login" element={<BuildPage PageComponent={LoginPage} />} />
-        <Route path="signup" element={<BuildPage PageComponent={SignUpPage} />} />
+        <Route
+          path="*" element={<BuildPage PageComponent={NotFoundPage} />}
+        />
+        <Route
+          path="/" element={<BuildPage PageComponent={MainPage} />}
+        />
+        <Route
+          path="login" element={<BuildPage PageComponent={LoginPage} />}
+        />
+        <Route path="signup" element={<BuildPage PageComponent={SignUpPage} />}
+        />
       </Routes>
     </BrowserRouter>
   );

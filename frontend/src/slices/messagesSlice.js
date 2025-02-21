@@ -30,6 +30,10 @@ const messagesSlice = createSlice({
   },
 });
 
-export const { setMessages, addMessage, removeMessagesByChannel } = messagesSlice.actions;
+export const {
+  setMessages,
+  addMessage,
+  removeMessagesByChannel
+} = messagesSlice.actions;
 
 export default messagesSlice.reducer;

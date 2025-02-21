@@ -12,8 +12,6 @@ const rollbarConfig = {
   environment: 'testenv',
 };
 
-console.log(import.meta.env.VITE_ROLLBAR_ACCESS_TOKEN)
-
 const init = async () => (
   <RollbarProvider config={rollbarConfig}>
     <ErrorBoundary>

@@ -4,6 +4,7 @@ import filter from 'leo-profanity';
 import { ToastContainer } from 'react-toastify';
 import { logout } from '../slices/authSlice';
 import getModal from './modals/index.js';
+import React from 'react';
 
 const Header = () => {
   const { t } = useTranslation();
@@ -18,13 +19,22 @@ const Header = () => {
   };
 
   return (
-    <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
+    <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white" >
       <div className="container d-flex justify-content-between">
-        <a className="navbar-brand" href="/">Hexlet Chat</a>
+        <a
+          className="navbar-brand"
+          href="/"
+        >
+          Hexlet Chat
+        </a>
         {isSignedIn && (
-        <button type="button" className="btn btn-primary" onClick={handleLogout}>
-          {t('buildPage.buttons.logout')}
-        </button>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={handleLogout}
+          >
+            {t('buildPage.buttons.logout')}
+          </button>
         )}
       </div>
     </nav>
@@ -37,11 +47,18 @@ const BuildPage = ({ PageComponent }) => {
     isActiveRemoveChannelModal,
     isActiveEditChannelModal,
   } = useSelector((state) => state.channels);
+
   return (
     <>
-      <div className={`h-100 bg-light ${isActiveAddChannelModal ? 'modal-open' : ''}`} style={{ 'overscroll-behavior-x': 'none', overflow: 'hidden' }}>
+      <div
+        className={`h-100 bg-light ${isActiveAddChannelModal ? 'modal-open' : ''}`}
+        style={{ overscrollBehaviorX: 'none', overflow: 'hidden' }}
+      >
         <div className="h-100">
-          <div className="h-100" id="chat">
+          <div
+            className="h-100"
+            id="chat"
+          >
             <div className="d-flex flex-column h-100">
               <Header />
               <PageComponent />
@@ -50,9 +67,9 @@ const BuildPage = ({ PageComponent }) => {
           </div>
         </div>
       </div>
-      {isActiveAddChannelModal ? getModal('AddChannel') : ''}
-      {isActiveRemoveChannelModal ? getModal('RemoveChannel') : ''}
-      {isActiveEditChannelModal ? getModal('EditChannel') : ''}
+      {isActiveAddChannelModal && React.createElement(getModal('AddChannel'))}
+      {isActiveRemoveChannelModal && React.createElement(getModal('RemoveChannel'))}
+      {isActiveEditChannelModal && React.createElement(getModal('EditChannel'))}
     </>
   );
 };
