@@ -68,7 +68,7 @@ const ModalEditChannel = () => {
         .max(20, t('modals.editChannel.fields.name.errors.maxLength'))
         .notOneOf(
           channels.map((channel) => channel.name),
-          t('modals.editChannel.fields.name.errors.exist')
+          t('modals.editChannel.fields.name.errors.exist'),
         )
         .required(t('modals.editChannel.fields.name.errors.required')),
     }),

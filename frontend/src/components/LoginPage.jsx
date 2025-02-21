@@ -95,9 +95,9 @@ const LoginPage = () => {
                   </label>
                   {formik.touched.password && formik.errors.password
                     ? (
-                    <div className="invalid-tooltip">
-                      {formik.errors.password}
-                    </div>
+                      <div className="invalid-tooltip">
+                        {formik.errors.password}
+                      </div>
                     )
                     : null}
                 </div>

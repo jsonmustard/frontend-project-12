@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import axios from 'axios';
 import { loadAuthData } from '../slices/authSlice';
 import { addMessage } from '../slices/messagesSlice';
 import socket from '../socket';
@@ -10,7 +11,6 @@ import NotFoundPage from './NotFoundPage';
 import MainPage from './MainPage';
 import LoginPage from './LoginPage';
 import SignUpPage from './SignUpPage';
-import axios from 'axios';
 
 const App = () => {
   axios.interceptors.response.use(
@@ -23,7 +23,7 @@ const App = () => {
         }
       }
       return Promise.reject(error);
-    }
+    },
   );
 
   const dispatch = useDispatch();
@@ -54,15 +54,36 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route
-          path="*" element={<BuildPage PageComponent={NotFoundPage} />}
+          path="*"
+          element={(
+            <BuildPage
+              PageComponent={NotFoundPage}
+            />
+          )}
         />
         <Route
-          path="/" element={<BuildPage PageComponent={MainPage} />}
+          path="/"
+          element={(
+            <BuildPage
+              PageComponent={MainPage}
+            />
+          )}
         />
         <Route
-          path="login" element={<BuildPage PageComponent={LoginPage} />}
+          path="login"
+          element={(
+            <BuildPage
+              PageComponent={LoginPage}
+            />
+          )}
         />
-        <Route path="signup" element={<BuildPage PageComponent={SignUpPage} />}
+        <Route
+          path="signup"
+          element={(
+            <BuildPage
+              PageComponent={SignUpPage}
+            />
+          )}
         />
       </Routes>
     </BrowserRouter>

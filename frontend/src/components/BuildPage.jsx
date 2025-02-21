@@ -1,10 +1,10 @@
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import { ToastContainer } from 'react-toastify';
 import { logout } from '../slices/authSlice';
 import getModal from './modals/index.js';
-import React from 'react';
 
 const Header = () => {
   const { t } = useTranslation();
@@ -19,7 +19,7 @@ const Header = () => {
   };
 
   return (
-    <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white" >
+    <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
       <div className="container d-flex justify-content-between">
         <a
           className="navbar-brand"

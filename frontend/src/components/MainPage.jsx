@@ -43,7 +43,7 @@ const MainPage = () => {
     body: Yup.string()
       .trim()
       .required(t('errors.required')),
-  });  
+  });
 
   const dispatch = useDispatch();
 
@@ -127,6 +127,8 @@ const MainPage = () => {
       .catch((error) => {
         console.error('Error fetching messages:', error);
       });
+
+      return null;
   }, [dispatch]);
 
   useEffect(() => {
@@ -163,7 +165,8 @@ const MainPage = () => {
         </b>
       </p>
       <span className="text-muted">
-        {messages.filter((msg) => msg.channelId === currentChannel?.id).length} {t('mainPage.messagesCounter', {
+        {messages.filter((msg) => msg.channelId === currentChannel?.id).length}
+        {t('mainPage.messagesCounter', {
           count: messages.filter((msg) => msg.channelId === currentChannel?.id).length,
         })}
       </span>
@@ -323,25 +326,22 @@ const MainPage = () => {
   );
 
   return (
-    <>
-      {isLoading
-        ? renderLoader()
-        : (
-          <div className="container h-100 my-4 overflow-hidden rounded shadow">
-            <div className="row h-100 bg-white flex-md-row">
-              {renderChannels()}
-              <div className="col p-0 h-100">
-                <div className="d-flex flex-column h-100">
-                  {renderHeader()}
-                  {renderMessages()}
-                  {renderMessageForm()}
-                </div>
+    isLoading
+      ? renderLoader()
+      : (
+        <div className="container h-100 my-4 overflow-hidden rounded shadow">
+          <div className="row h-100 bg-white flex-md-row">
+            {renderChannels()}
+            <div className="col p-0 h-100">
+              <div className="d-flex flex-column h-100">
+                {renderHeader()}
+                {renderMessages()}
+                {renderMessageForm()}
               </div>
             </div>
           </div>
-        )
-      }
-    </>
+        </div>
+      )
   );
 };
 

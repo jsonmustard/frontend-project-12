@@ -44,10 +44,10 @@ const ModalRemoveChannel = () => {
 
     const deleteMessagesPromises = messagesToDelete
       .map((message) => axios.delete(`/api/v1/messages/${message.id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }));
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }));
 
     Promise.all([...deleteMessagesPromises])
       .then(() => axios.delete(`/api/v1/channels/${channelToRemoveId}`, {
@@ -77,7 +77,7 @@ const ModalRemoveChannel = () => {
 
   return (
     <>
-      <div className="fade modal-backdrop show"/>
+      <div className="fade modal-backdrop show" />
       <div
         role="dialog"
         aria-modal="true"
@@ -92,10 +92,10 @@ const ModalRemoveChannel = () => {
                 {t('modals.removeChannel.title')}
               </div>
               <button
-                  type="button"
-                  aria-label="Close"
-                  className="btn btn-close"
-                  onClick={() => dispatch(toggleRemoveChannelModal())}
+                type="button"
+                aria-label="Close"
+                className="btn btn-close"
+                onClick={() => dispatch(toggleRemoveChannelModal())}
               />
             </div>
             <div className="modal-body">
