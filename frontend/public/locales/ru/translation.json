@@ -31,6 +31,7 @@
     "messagesCounter_few": "сообщения",
     "messagesCounter_many": "сообщений",
     "messageInputPlaceholder": "Введите сообщение...",
+    "newMessage": "Новое сообщение",
     "removeButton": "Удалить",
     "editButton": "Переименовать",
     "channelManagement": "Управление каналом"
