@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 const Messages = () => {
   const messagesBoxRef = useRef(null);
   const { t } = useTranslation();
-  
+
   const { messages, currentChannelId, channels } = useSelector((state) => ({
     messages: state.messages.messages,
     currentChannelId: state.channels.currentChannelId,

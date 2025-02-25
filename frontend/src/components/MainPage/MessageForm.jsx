@@ -97,7 +97,6 @@ const MessageForm = () => {
             className="border-0 p-0 ps-2 form-control"
             disabled={formik.isSubmitting}
             onKeyDown={handleKeyDown}
-            autoFocus
           />
           <button
             type="submit"

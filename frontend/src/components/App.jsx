@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import i18next from 'i18next';
+import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { loadAuthData } from '../slices/authSlice';
 import { addMessage } from '../slices/messagesSlice';
 import socket from '../socket';
@@ -10,8 +12,6 @@ import NotFoundPage from './NotFoundPage';
 import MainPage from './MainPage';
 import LoginPage from './LoginPage';
 import SignUpPage from './SignUpPage';
-import i18next from 'i18next';
-import { I18nextProvider, initReactI18next } from 'react-i18next';
 import ru from '../../public/locales/ru.json';
 
 // Инициализируем i18next вне компонента

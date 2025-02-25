@@ -27,14 +27,14 @@ const MainPage = () => {
     const fetchData = async () => {
       try {
         const [channelsRes, messagesRes] = await Promise.all([
-          axios.get('/api/v1/channels', { 
-            headers: { Authorization: `Bearer ${token}` } 
+          axios.get('/api/v1/channels', {
+            headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get('/api/v1/messages', { 
-            headers: { Authorization: `Bearer ${token}` } 
+          axios.get('/api/v1/messages', {
+            headers: { Authorization: `Bearer ${token}` },
           }),
         ]);
-        
+
         dispatch(setChannels({ channels: channelsRes.data }));
         dispatch(setMessages({ messages: messagesRes.data }));
         dispatch(setCurrentChannelId({ currentChannelId: channelsRes.data[0]?.id }));
