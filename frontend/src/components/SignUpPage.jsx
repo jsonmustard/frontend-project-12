@@ -38,7 +38,7 @@ const SignUpPage = () => {
         if (error.response.status === 409) {
           setFieldError('confirmPassword', t('signUpPage.form.errors.userExists'));
         } else {
-          console.error('Ошибка создания пользователя:', error);
+          console.error('Error creating user:', error);
         }
       });
   };

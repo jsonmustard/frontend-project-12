@@ -24,7 +24,7 @@ const LoginPage = () => {
         if (error.response.status === 401) {
           setFieldError('password', t('loginPage.form.errors.wrongData'));
         } else {
-          console.error('Ошибка авторизации:', error);
+          console.error('Error authorization:', error);
         }
       });
   };

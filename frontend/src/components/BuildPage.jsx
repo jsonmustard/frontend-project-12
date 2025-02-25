@@ -25,7 +25,7 @@ const Header = () => {
           className="navbar-brand"
           href="/"
         >
-          Hexlet Chat
+          {t('buildPage.title')}
         </a>
         {isSignedIn && (
           <button

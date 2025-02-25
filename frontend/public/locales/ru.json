@@ -1,5 +1,6 @@
 {
   "buildPage": {
+    "title": "Hexlet Chat",
     "buttons": {
       "logout": "Выйти"
     }
@@ -27,6 +28,7 @@
     "toMainLink": "на главную страницу"
   },
   "mainPage": {
+    "channels": "Каналы",
     "messagesCounter_one": "сообщение",
     "messagesCounter_few": "сообщения",
     "messagesCounter_many": "сообщений",
@@ -34,7 +36,8 @@
     "newMessage": "Новое сообщение",
     "removeButton": "Удалить",
     "editButton": "Переименовать",
-    "channelManagement": "Управление каналом"
+    "channelManagement": "Управление каналом",
+    "sendButton": "Отправить"
   },
   "modals": {
     "addChannel": {

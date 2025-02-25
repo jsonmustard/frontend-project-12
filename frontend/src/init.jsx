@@ -3,7 +3,6 @@ import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import { Provider } from 'react-redux';
 import store from './slices/index.js';
 import App from './components/App';
-import './i18n.js';
 import './styles.scss';
 import 'bootstrap';
 
